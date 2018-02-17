@@ -1,0 +1,25 @@
+{
+  "name": "notshapeshift",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "npm run build; node ./lib/dapp/index.js",
+    "clean": "shx rm -rf lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ETHDenverSleepIn/NotShapeshift.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ETHDenverSleepIn/NotShapeshift/issues"
+  },
+  "homepage": "https://github.com/ETHDenverSleepIn/NotShapeshift#readme",
+  "dependencies": {
+    "aquaduct": "^1.0.0",
+    "typescript": "^2.7.2"
+  }
+}
