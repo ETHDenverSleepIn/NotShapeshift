@@ -1,0 +1,66 @@
+$mobileCutoff: 500px;
+
+.content {
+  color: #3a3a3a;
+  font-weight: 100;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #414141;  
+  font-weight: 100;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin-bottom: .5rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin-bottom: .25rem;
+}
+
+code {
+  color: #656565;
+}
+
+h1 {
+  color: #414141;
+  font-size: 2.5rem;
+  text-align: left;
+  line-height: 1.4;
+
+  @media(max-width: $mobileCutoff) {
+    font-size: 2rem;
+  }
+}
+
+p {
+  line-height: 1.5;
+}
+
+.button-bar {
+  display: flex;
+  padding-top: 1rem;
+
+  @media(max-width: $mobileCutoff) {
+    padding-right: 1rem;
+  }
+
+  a {
+    background-color: #2b2c34;
+    text-decoration: none;
+    padding: 1rem;
+    text-align: center;
+    color:#faf8f5;
+    flex: 1;
+
+    &:first-child {
+      margin-right: 1rem;      
+    }
+
+    &:hover {
+      background-color: #41424e;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+.iframe-frame {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  top: 81px;
+  height: 100%;
+  border: 0;
+  background-color: white;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch
+}
