@@ -8,6 +8,7 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import FlatButton from 'material-ui/FlatButton';
 import Web3 from 'web3'
 import {GridList, GridTile} from 'material-ui/GridList';
 import * as WebRequest from 'web-request';
@@ -16,16 +17,17 @@ import * as WebRequest from 'web-request';
 var web3 = require('web3');
 var ethAmount=0;
 var coinType = '';
+var lowBidZrx = 0;
+//var orders3;
 const truffle = require("truffle-contract");
 const $ = require("jquery");
 const NotShapeshiftJSON = require("./NotShapeshift.json");
 const NotShapeshift = truffle(NotShapeshiftJSON);
 console.log("NOT SHAPESHIFT", NotShapeshift)
-const Promise = require("bluebird");  
+const Promise = require("bluebird");
 
+//window. order = getOrders();
 
-
-console.log(getOrders());
 
 const styles = {
   root: {
@@ -48,7 +50,7 @@ const tilesData = [
     id: 'zrx',
     img: require('./pictures/zrx.jpg'),
     title: 'Ox (ZRX)',
-    lowBid: '',
+    lowBid:'',
   },
   {
     id: 'mln',
@@ -115,7 +117,15 @@ class App extends Component {
       console.log("web3")
       document.getElementById('meta-mask-required').innerHTML = 'You need <a href="https://metamask.io/">MetaMask</a> browser plugin to run this example'
     }
-    console.log("WEB3", window.web3);
+    var orders;
+    getOrders().then(orders =>{
+      //orders3 = orders;
+      $("#lowbid").html(orders[0].price);
+      //console.log("order",orders3);
+    });
+    //console.log("order" ,orders3[0].price);
+    // var orders2 = Promise.resolve(orders);
+    // console.log("order", orders2);
     Promise.promisifyAll(window.web3.eth, { suffix: "Promise" });
     NotShapeshift.setProvider(window.web3.currentProvider);
     console.log("CONTRACT 2~ ", NotShapeshift);
@@ -131,7 +141,7 @@ class App extends Component {
   }
   render() {
     return (
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <MuiThemeProvider>
         <div className="App">
           <AppBar
             title="App Name"
@@ -144,6 +154,7 @@ class App extends Component {
                   key={tile.img}
                   title={tile.title}
                   titleStyle={styles.titleStyle}
+                  subtitle={<span>lowest bid: <b>{tile.lowBid}</b></span>}
                   titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
                   onTouchTap={this.tileClick.bind(this, tile.id)}
                 >
@@ -156,16 +167,8 @@ class App extends Component {
           <TextField hintText="Amount willing to trade" type="text" id="amount"
                 value={this.state.amount} onChange={this.handleAmountChange.bind(this)} />
           <RaisedButton label="Buy"  onClick={this.handleSubmission.bind(this)}/>
-          <div>
-            <RaisedButton
-              label="Wallet"
-              onClick={this.handleToggle}
-            />
-            <Drawer open={this.state.open}>
-              <h1>Wallet</h1>
-
-            </Drawer>
-          </div>
+          <p>Selected Button: <span id="selbut"> </span></p>
+          <p>Lowest Bid: <span id="lowbid"> </span></p>
       </div>
       </MuiThemeProvider>
     );
@@ -173,6 +176,7 @@ class App extends Component {
   tileClick(event, index, value){
       coinType = event;
       console.log(coinType);
+      $("#selbut").html(coinType);
   }
   handleChange(event, index, value) {
      this.setState({
@@ -274,7 +278,7 @@ async function getOrders() {
     }
     final_orders[key] = final_order
   }
-  console.log(final_orders);
+  window.orders = final_orders;
   return final_orders;
 }
 export default App;
