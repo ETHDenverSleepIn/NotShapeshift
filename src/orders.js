@@ -1,10 +1,10 @@
+import * as WebRequest from 'web-request';
+import * as Web3 from 'web3';
+
 module.exports =
 {
-  import { DecodedLogEvent, ZeroEx } from '0x.js';
-  import * as WebRequest from 'web-request';
-  import { BigNumber } from '@0xproject/utils';
-  import * as Web3 from 'web3';
     getOrders: function () {
+
       console.log("YES");
       const makerToken = "ZRX";
       const takerToken = "WETH";
