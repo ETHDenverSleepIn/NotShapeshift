@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
-import Paper from 'material-ui/Paper';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
-import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
-import Web3 from 'web3'
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Web3 from 'web3'
 import {GridList, GridTile} from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import * as WebRequest from 'web-request';
+
 
 var web3 = require('web3');
 var ethAmount=0;
@@ -39,44 +38,50 @@ const styles = {
 const tilesData = [
   {
     id: 'zrx',
-    img: './zrx.jpg',
+    img: require('./pictures/zrx.jpg'),
     title: 'Ox (ZRX)',
     lowBid: '',
   },
   {
     id: 'mln',
-    img: 'mln.jpg',
+    img: require('./pictures/mln.jpg'),
     title: 'Melon (MLN)',
     lowBid: '',
   },
   {
     id: 'omg',
-    img: 'omg.png',
+    img: require('./pictures/omg.png'),
     title: 'OmiseGO (OMG)',
     lowBid: '',
   },
   {
     id: 'ant',
-    img: '../public/ant.jpg',
+    img: require('./pictures/ant.jpg'),
     title: 'Aragon (ANT)',
     lowBid: '',
   },
   {
     id: 'snt',
-    img: 'snt.svg',
+    img: require('./pictures/snt.svg'),
     title: 'Status (SNT)',
     lowBid: '',
   },
   {
     id: 'bnt',
-    img: 'bnt.svg',
+    img: require('./pictures/bnt.svg'),
     title: 'Bancor (BNT)',
     lowBid: '',
   },
   {
     id:'storj',
-    img: 'storj.svg',
+    img: require('./pictures/storj.svg'),
     title: 'Storj (STORJ)',
+    lowBid: '',
+  },
+  {
+    id: 'snt',
+    img: require('./pictures/snt.svg'),
+    title: 'Status (SNT)',
     lowBid: '',
   },
 
@@ -84,12 +89,11 @@ const tilesData = [
 
 class App extends Component {
 
-  constructor() {
-    super();
-    this.state = {
-      selectedToken: 'ZRX',
-    };
+  constructor(props) {
+    super(props);
+    this.state = {open: false};
   }
+  handleToggle = () => this.setState({open: !this.state.open});
   getInitialState() {
     return {amount: 'Hello!'};
   }
@@ -105,7 +109,7 @@ class App extends Component {
   }
   render() {
     return (
-        <MuiThemeProvider>
+        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <div className="App">
           <AppBar
             title="App Name"
@@ -130,6 +134,16 @@ class App extends Component {
           <TextField hintText="Amount willing to trade" type="text" id="amount"
                 value={this.state.amount} onChange={this.handleAmountChange.bind(this)} />
           <RaisedButton label="Buy"  onClick={this.handleSubmission.bind(this)}/>
+          <div>
+            <RaisedButton
+              label="Wallet"
+              onClick={this.handleToggle}
+            />
+            <Drawer open={this.state.open}>
+              <h1>Wallet</h1>
+
+            </Drawer>
+          </div>
       </div>
       </MuiThemeProvider>
     );
@@ -179,10 +193,10 @@ async function getOrders() {
   var taker_Address = "";
   var maker_Address = "";
   for (var key in tokenpairs_obj) {
-    if(tokenpairs_obj[key].tokenB.symbol == takerToken){
+    if(tokenpairs_obj[key].tokenB.symbol === takerToken){
       taker_Address = tokenpairs_obj[key].tokenB.address
     }
-    if(tokenpairs_obj[key].tokenA.symbol == makerToken){
+    if(tokenpairs_obj[key].tokenA.symbol === makerToken){
       maker_Address = tokenpairs_obj[key].tokenA.address
     }
   }
@@ -191,8 +205,8 @@ async function getOrders() {
   var final_orders = [];
   for (var key in orders_obj) {
     //console.log("Maker :", orders_obj[key].makerTokenAddress, "Taker: ", orders_obj[key].takerTokenAddress);
-    if(orders_obj[key].makerTokenAddress == maker_Address
-            && orders_obj[key].takerTokenAddress == taker_Address){
+    if(orders_obj[key].makerTokenAddress === maker_Address
+            && orders_obj[key].takerTokenAddress === taker_Address){
       var matched_order = orders_obj[key];
       var price = matched_order.takerTokenAmount/matched_order.makerTokenAmount;
       final_orders.unshift(matched_order);
