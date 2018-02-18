@@ -14,8 +14,8 @@ import * as WebRequest from 'web-request';
 
 
 var web3 = require('web3');
-var ethAmount=0;
 var coinType = '';
+var ethAmount = 0;
 const truffle = require("truffle-contract");
 const $ = require("jquery");
 const NotShapeshiftJSON = require("./NotShapeshift.json");
@@ -25,7 +25,7 @@ const Promise = require("bluebird");
 
 
 
-console.log(getOrders());
+console.log(getOrders("ZRX"));
 
 const styles = {
   root: {
@@ -103,11 +103,12 @@ class App extends Component {
   }
   handleToggle = () => this.setState({open: !this.state.open});
   getInitialState() {
-    return {amount: 'Hello!'};
+    return {welcome: 'Hello!'};
   }
   componentDidMount() {
     this.web3 = new Web3(web3.currentProvider);
     window.addEventListener('load', this.handleLoad.bind(this));
+
 
   }
   handleLoad() {
@@ -131,7 +132,7 @@ class App extends Component {
   }
   render() {
     return (
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <MuiThemeProvider>
         <div className="App">
           <AppBar
             title="App Name"
@@ -152,20 +153,9 @@ class App extends Component {
               ))}
             </GridList>
           </div>
-
-          <TextField hintText="Amount willing to trade" type="text" id="amount"
-                value={this.state.amount} onChange={this.handleAmountChange.bind(this)} />
+          
+          <TextField hintText="Amount willing to trade" type="text" id="amount" onChange={this.handleAmountChange.bind(this)} />
           <RaisedButton label="Buy"  onClick={this.handleSubmission.bind(this)}/>
-          <div>
-            <RaisedButton
-              label="Wallet"
-              onClick={this.handleToggle}
-            />
-            <Drawer open={this.state.open}>
-              <h1>Wallet</h1>
-
-            </Drawer>
-          </div>
       </div>
       </MuiThemeProvider>
     );
@@ -178,17 +168,20 @@ class App extends Component {
      this.setState({
        selectedToken: value,
      });
+     getOrders(value)
   }
   handleAmountChange(event, index, value) {
+    console.log("hey", event.target.value);
     this.setState({amount: event.target.value});
-    ethAmount=event.target.value;
-    console.log(ethAmount);
+    // ethAmount=event.target.value;
   }
   handleSubmission(event, index, value){
     console.log("clicked and sending request");
-
+    var deployed;
     window.web3.eth.getAccountsPromise()
         .then(accounts => {
+          console.log("AMOUNT~~~~", this.state.amount)
+          ethAmount = window.web3.toWei(this.state.amount, 'ether')
           console.log("ACCOUNTS", accounts)
             if (accounts.length == 0) {
                 $("#balance").html("N/A");
@@ -200,12 +193,50 @@ class App extends Component {
             // console.log("ACCOUNT:", window.account);
             return NotShapeshift.deployed(); //if you print it here, you won't see anything since it won't resolve in time
         })
-        .then(function(deployed) {
+        .then(function(_deployed) {
+          deployed = _deployed;
           console.log("deployed contract", deployed) //methods logged in chrome console
-            return deployed.getBalance.call(); //deployed is our NotShapeshift.deployed() truffle instance
+          return deployed.getBalance.call(); //deployed is our NotShapeshift.deployed() truffle instance
       })
         .then(function(result){
           console.log("Result from contract method call: ", result);
+          return deployed.wrapEth({value: ethAmount, from: window.account}); // don't include "to since it's specified in the solidity function"
+        })
+        .then(function(txObject){
+          // if(success) check for wrapEth success
+          console.log("Transaction object", txObject)
+          if(txObject.receipt.status !== 1){
+            console.error("Transaction unsuccessful");
+            return false;
+          }
+          console.log(deployed.address);
+          return deployed.getWethBalance(deployed.address);
+        })
+        .then(function(wethBalance){
+          //address[5] orderAddresses, uint[6] orderValues, uint fillTakerTokenAmount, bool shouldThrowOnInsufficientBalanceOrAllowance, uint8 v, bytes32 r, bytes32 s
+          //deployedAddress[3] should be var variable token;
+            //maker: orderAddresses[0],
+            // taker: orderAddresses[1],
+            // makerToken: orderAddresses[2],
+            // takerToken: orderAddresses[3],
+            // feeRecipient: orderAddresses[4],
+          var orderArray = window.orders[0]
+          var orderAddresses = [orderArray[0], orderArray[1],orderArray[2], orderArray[3], orderArray[4]]
+          var orderValues = [orderArray[0], orderArray[1], orderArray[2], orderArray[3], orderArray[4]]
+          var tokenAmount = wethBalance;
+          var safety = true;
+          var v = orderArray[3];
+                    var s = orderArray[3];
+
+          var v = orderArray[3];
+
+          var r  = orderArray[3];
+          var s = orderArray[3];
+
+          return deployed.fillOrder(orderAddresses, orderValues, tokenAmount, safety, v, r, s);
+        })
+        .catch(error => {
+          return console.error(error)
         })
 
     // window.web3.eth.sendTransaction({
@@ -222,11 +253,11 @@ class App extends Component {
   }
 }
 
-async function getOrders() {
+async function getOrders(makerToken) {
   console.log("YES");
-  const makerToken = "ZRX";
+  // const makerToken = "MLN";
   const takerToken = "WETH";
-  const networkId = 1;
+  const networkId = 42;
   const orders_url = "https://api.ercdex.com/api/standard/"+networkId+"/v0/orders?sortOrder=price&isOpen=True&isAscending=false";
   const tokenpairs_url = "https://api.ercdex.com/api/token-pairs/"+networkId;
   var orders_result = await WebRequest.get(orders_url);
@@ -275,6 +306,6 @@ async function getOrders() {
     final_orders[key] = final_order
   }
   console.log(final_orders);
-  return final_orders;
+  return final_orders; //sorted by best to worst price
 }
 export default App;
