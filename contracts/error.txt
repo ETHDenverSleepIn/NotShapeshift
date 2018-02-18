@@ -1,0 +1,129 @@
+Compiling ./contracts/Exchange.sol...
+Compiling ./contracts/Migrations.sol...
+Compiling ./contracts/NotShapeshift.sol...
+Compiling ./contracts/SafeMath.sol...
+Compiling ./contracts/Token.sol...
+Compiling ./contracts/WETH9.sol...
+
+Compilation warnings encountered:
+
+/Users/parkerplace/DAPPS/NotShapeshift/contracts/Token.sol:6:5: Warning: No visibility specified. Defaulting to "public".
+    function totalSupply() constant returns (uint supply) {}
+    ^------------------------------------------------------^
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Token.sol:10:5: Warning: No visibility specified. Defaulting to "public".
+    function balanceOf(address _owner) constant returns (uint balance) {}
+    ^-------------------------------------------------------------------^
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Token.sol:16:5: Warning: No visibility specified. Defaulting to "public".
+    function transfer(address _to, uint _value) returns (bool success) {}
+    ^-------------------------------------------------------------------^
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Token.sol:23:5: Warning: No visibility specified. Defaulting to "public".
+    function transferFrom(address _from, address _to, uint _value) returns (bool success) {}
+    ^--------------------------------------------------------------------------------------^
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Token.sol:29:5: Warning: No visibility specified. Defaulting to "public".
+    function approve(address _spender, uint _value) returns (bool success) {}
+    ^-----------------------------------------------------------------------^
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Token.sol:34:5: Warning: No visibility specified. Defaulting to "public".
+    function allowance(address _owner, address _spender) constant returns (uint remaining) {}
+    ^---------------------------------------------------------------------------------------^
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Token.sol:50:5: Warning: No visibility specified. Defaulting to "public".
+    function Ownable() {
+    ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Token.sol:59:5: Warning: No visibility specified. Defaulting to "public".
+    function transferOwnership(address newOwner) onlyOwner {
+    ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Exchange.sol:66:5: Warning: No visibility specified. Defaulting to "public".
+    function Exchange(address _zrxToken, address _tokenTransferProxy) {
+    ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Migrations.sol:11:3: Warning: No visibility specified. Defaulting to "public".
+  function Migrations() {
+  ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Migrations.sol:15:3: Warning: No visibility specified. Defaulting to "public".
+  function setCompleted(uint completed) restricted {
+  ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Migrations.sol:19:3: Warning: No visibility specified. Defaulting to "public".
+  function upgrade(address new_address) restricted {
+  ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/NotShapeshift.sol:14:2: Warning: No visibility specified. Defaulting to "public".
+	function NotShapeshift(){
+ ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/NotShapeshift.sol:19:5: Warning: No visibility specified. Defaulting to "public".
+    function wrapEth() payable{
+    ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/NotShapeshift.sol:25:5: Warning: No visibility specified. Defaulting to "public".
+    function getBalance() constant returns(address){
+    ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/NotShapeshift.sol:16:23: Warning: This looks like an address but has an invalid checksum. If this is not used as an address, please prepend '00'. Correct checksummed address: '0xE41d2489571d322189246DaFA5ebDe1F4699F498'. For more information please see https://solidity.readthedocs.io/en/develop/types.html#address-literals
+		exchange = Exchange(0xe41d2489571d322189246dafa5ebde1f4699f498);
+		                    ^----------------------------------------^
+
+
+/Users/parkerplace/DAPPS/NotShapeshift/contracts/Token.sol:1:1: SyntaxError: Source file requires different compiler version (current compiler is 0.4.19+commit.c4cbbb05.Emscripten.clang - note that nightly builds are considered to be strictly less than the released version
+pragma solidity 0.4.18;
+^---------------------^
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Token.sol:6:5: Warning: No visibility specified. Defaulting to "public".
+    function totalSupply() constant returns (uint supply) {}
+    ^------------------------------------------------------^
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Token.sol:10:5: Warning: No visibility specified. Defaulting to "public".
+    function balanceOf(address _owner) constant returns (uint balance) {}
+    ^-------------------------------------------------------------------^
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Token.sol:16:5: Warning: No visibility specified. Defaulting to "public".
+    function transfer(address _to, uint _value) returns (bool success) {}
+    ^-------------------------------------------------------------------^
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Token.sol:23:5: Warning: No visibility specified. Defaulting to "public".
+    function transferFrom(address _from, address _to, uint _value) returns (bool success) {}
+    ^--------------------------------------------------------------------------------------^
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Token.sol:29:5: Warning: No visibility specified. Defaulting to "public".
+    function approve(address _spender, uint _value) returns (bool success) {}
+    ^-----------------------------------------------------------------------^
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Token.sol:34:5: Warning: No visibility specified. Defaulting to "public".
+    function allowance(address _owner, address _spender) constant returns (uint remaining) {}
+    ^---------------------------------------------------------------------------------------^
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Token.sol:50:5: Warning: No visibility specified. Defaulting to "public".
+    function Ownable() {
+    ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Token.sol:59:5: Warning: No visibility specified. Defaulting to "public".
+    function transferOwnership(address newOwner) onlyOwner {
+    ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Exchange.sol:66:5: Warning: No visibility specified. Defaulting to "public".
+    function Exchange(address _zrxToken, address _tokenTransferProxy) {
+    ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Migrations.sol:11:3: Warning: No visibility specified. Defaulting to "public".
+  function Migrations() {
+  ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Migrations.sol:15:3: Warning: No visibility specified. Defaulting to "public".
+  function setCompleted(uint completed) restricted {
+  ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/Migrations.sol:19:3: Warning: No visibility specified. Defaulting to "public".
+  function upgrade(address new_address) restricted {
+  ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/NotShapeshift.sol:14:2: Warning: No visibility specified. Defaulting to "public".
+	function NotShapeshift(){
+ ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/NotShapeshift.sol:19:5: Warning: No visibility specified. Defaulting to "public".
+    function wrapEth() payable{
+    ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/NotShapeshift.sol:25:5: Warning: No visibility specified. Defaulting to "public".
+    function getBalance() constant returns(address){
+    ^
+Spanning multiple lines.
+,/Users/parkerplace/DAPPS/NotShapeshift/contracts/NotShapeshift.sol:16:23: Warning: This looks like an address but has an invalid checksum. If this is not used as an address, please prepend '00'. Correct checksummed address: '0xE41d2489571d322189246DaFA5ebDe1F4699F498'. For more information please see https://solidity.readthedocs.io/en/develop/types.html#address-literals
+		exchange = Exchange(0xe41d2489571d322189246dafa5ebde1f4699f498);
+		                    ^----------------------------------------^
+Compilation failed. See above.
