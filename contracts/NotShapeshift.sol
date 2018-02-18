@@ -14,7 +14,7 @@ contract NotShapeshift{
 
 	function NotShapeshift(){
 	    etherToken = new WETH9();
-		exchange = Exchange(0xe41d2489571d322189246dafa5ebde1f4699f498);
+		exchange = Exchange(0xe41d2489571d322189246dafa5ebde1f4699f498, 0x1dc4c1cefef38a777b15aa20260a54e584b16c48);
 	}
     function wrapEth() payable{
         require(msg.value > 0);
@@ -25,6 +25,13 @@ contract NotShapeshift{
     function getBalance() constant returns(address){
         etherToken.balanceOf(this);
     }
+    function fillOrder(address[5] orderAddresses, uint[6] orderValues, uint fillTakerTokenAmount, bool shouldThrowOnInsufficientBalanceOrAllowance, uint8 v, bytes32 r, bytes32 s) public returns(uint){
+    	exchange.setUnlimitedProxyAllowance(ZRX_TOKEN_CONTRACT, TOKEN_TRANSFER_PROXY_CONTRACT);
+    	return exchange.fillOrder(orderAddresses, orderValues, fillTakerTokenAmount, shouldThrowOnInsufficientBalanceOrAllowance, v, r, s); // returns (uint filledTakerTokenAmount)
+    	/// @notice `msg.sender` approves `_addr` to spend `_value` tokens
+    }
+    //bool should always be true
+    //fillTakerTokenAmount is simply the amount of tokens (in our case WETH) the Taker wants to fill.
 }
 
 //function deposit() public payable {

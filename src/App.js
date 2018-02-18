@@ -17,6 +17,14 @@ import * as WebRequest from 'web-request';
 var web3 = require('web3');
 var ethAmount=0;
 var coinType = '';
+const truffle = require("truffle-contract");
+const $ = require("jquery");
+const NotShapeshiftJSON = require("./NotShapeshift.json");
+const NotShapeshift = truffle(NotShapeshiftJSON);
+console.log("NOT SHAPESHIFT", NotShapeshift)
+const Promise = require("bluebird");  
+
+
 
 console.log(getOrders());
 
@@ -96,12 +104,26 @@ class App extends Component {
   componentDidMount() {
     this.web3 = new Web3(web3.currentProvider);
     window.addEventListener('load', this.handleLoad.bind(this));
+
   }
   handleLoad() {
     if (typeof web3 === 'undefined') {
       console.log("web3")
       document.getElementById('meta-mask-required').innerHTML = 'You need <a href="https://metamask.io/">MetaMask</a> browser plugin to run this example'
     }
+    console.log("WEB3", window.web3);
+    Promise.promisifyAll(window.web3.eth, { suffix: "Promise" });
+    NotShapeshift.setProvider(window.web3.currentProvider);
+    console.log("CONTRACT 2~ ", NotShapeshift);
+
+    if (typeof NotShapeshift.currentProvider.sendAsync !== "function") {
+      NotShapeshift.currentProvider.sendAsync = function() {
+        return NotShapeshift.currentProvider.send.apply(
+          NotShapeshift.currentProvider, arguments
+        );
+      };
+    }
+
   }
   render() {
     return (
@@ -150,17 +172,39 @@ class App extends Component {
   }
   handleSubmission(event, index, value){
     console.log("clicked and sending request");
-    window.web3.eth.sendTransaction({
-      from: window.web3.eth.accounts[0],
-      to: '0x6c85E27E0b01733f5d22425582A6CBD2B4a1C041',
-      value: window.web3.toWei(ethAmount, 'ether')
-    }, function(error, result) {
-      if (!error) {
-        document.getElementById('response').innerHTML = 'Success: <a href="https://testnet.etherscan.io/tx/' + result + '"> View Transaction </a>'
-      } else {
-        document.getElementById('response').innerHTML = '<pre>' + error + '</pre>'
-      }
-    })
+
+    window.web3.eth.getAccountsPromise()
+        .then(accounts => {
+          console.log("ACCOUNTS", accounts)
+            if (accounts.length == 0) {
+                $("#balance").html("N/A");
+                throw new Error("No account with which to transact");
+            }
+            window.account = accounts[0];
+            console.log("WINDOW.ACCOUNT", window.account);
+            console.log("NotShapeshift~ ", NotShapeshift);
+            // console.log("ACCOUNT:", window.account);
+            return NotShapeshift.deployed(); //if you print it here, you won't see anything since it won't resolve in time
+        })
+        .then(function(deployed) {
+          console.log("deployed contract", deployed) //methods logged in chrome console
+            return deployed.getBalance.call(); //deployed is our NotShapeshift.deployed() truffle instance
+      })
+        .then(function(result){
+          console.log("Result from contract method call: ", result);
+        })
+
+    // window.web3.eth.sendTransaction({
+    //   from: window.web3.eth.accounts[0],
+    //   to: '0x6c85E27E0b01733f5d22425582A6CBD2B4a1C041',
+    //   value: window.web3.toWei(ethAmount, 'ether')
+    // }, function(error, result) {
+    //   if (!error) {
+    //     document.getElementById('response').innerHTML = 'Success: <a href="https://testnet.etherscan.io/tx/' + result + '"> View Transaction </a>'
+    //   } else {
+    //     document.getElementById('response').innerHTML = '<pre>' + error + '</pre>'
+    //   }
+    // })
   }
 }
 

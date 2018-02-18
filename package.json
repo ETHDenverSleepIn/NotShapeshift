@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bluebird": "^3.5.1",
     "build": "^0.1.4",
+    "jquery": "^3.3.1",
     "material-ui": "^0.20.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -11,6 +13,7 @@
     "react-scripts": "1.1.1",
     "react-tap-event-plugin": "^3.0.2",
     "run": "^1.4.0",
+    "truffle-contract": "^3.0.3",
     "web-request": "^1.0.7",
     "web3": "^0.20.5"
   },
