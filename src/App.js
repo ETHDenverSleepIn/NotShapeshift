@@ -21,6 +21,7 @@ var ethAmount = 0;
 var lowBidZrx = 0;
 //var orders3;
 const truffle = require("truffle-contract");
+
 const NotShapeshiftJSON = require("./NotShapeshift.json");
 const NotShapeshift = truffle(NotShapeshiftJSON);
 console.log("NOT SHAPESHIFT", NotShapeshift)
@@ -203,7 +204,7 @@ class App extends Component {
             console.log("WINDOW.ACCOUNT", window.account);
             console.log("NotShapeshift~ ", NotShapeshift);
             // console.log("ACCOUNT:", window.account);
-            return NotShapeshift.deployed(); //if you print it here, you won't see anything since it won't resolve in time
+            return NotShapeshift.deployed(); //NotShapeshift is truffle contract
         })
         .then(function(_deployed) {
           deployed = _deployed;
@@ -269,7 +270,7 @@ async function getOrders(makerToken) {
   console.log("YES");
   var mkrToken = makerToken;
   const takerToken = "WETH";
-  const networkId = 1;
+  const networkId = 42;
   const orders_url = "https://api.ercdex.com/api/standard/"+networkId+"/v0/orders?sortOrder=price&isOpen=True&isAscending=false";
   const tokenpairs_url = "https://api.ercdex.com/api/token-pairs/"+networkId;
   var orders_result = await WebRequest.get(orders_url);
