@@ -7,7 +7,7 @@ contract WETH9 {
 
     event  Approval(address indexed src, address indexed guy, uint wad);
     event  Transfer(address indexed src, address indexed dst, uint wad);
-    event  Deposit(address indexed dst, uint wad);
+    event  Deposit(address indexed dst, uint wad, uint balance);
     event  Withdrawal(address indexed src, uint wad);
 
     mapping (address => uint)                       public  balanceOf;
@@ -18,7 +18,7 @@ contract WETH9 {
     }
     function deposit() public payable {
         balanceOf[msg.sender] += msg.value;
-        Deposit(msg.sender, msg.value);
+        Deposit(msg.sender, msg.value, balanceOf[msg.sender]);
     }
     function withdraw(uint wad) public {
         require(balanceOf[msg.sender] >= wad);

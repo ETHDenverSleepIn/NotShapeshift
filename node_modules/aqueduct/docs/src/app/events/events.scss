@@ -1,0 +1,36 @@
+.events {
+  flex: 1;
+  padding-top: 5rem;
+
+  .content {
+    max-width: 650px;
+    padding: 0 1rem;
+    width: 100%;
+  }
+}
+
+.event-container {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #bdbdbd;
+  padding-bottom: 1rem;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.event-description {
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.event-path {
+  color: #959595;
+  margin-top: .25rem;
+}
+
+.event-object-properties {
+  font-size: .8rem;
+  padding-left: 1rem;
+  margin-bottom: .5rem;
+}
