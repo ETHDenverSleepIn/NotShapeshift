@@ -4,7 +4,7 @@ import './WETH9.sol';
 import './Exchange.sol';
 
 contract NotShapeshift{
-    WETH9 etherToken;
+    WETH9 etherToken; //object for WETH9 Contract
     Exchange exchange;
     // address public etherToken;
     // address public exchange;
