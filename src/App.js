@@ -225,28 +225,28 @@ class App extends Component {
           return ethAmount;
         })
         .then(function(wethBalance){
-          //address[5] orderAddresses, uint[6] orderValues, uint fillTakerTokenAmount, bool shouldThrowOnInsufficientBalanceOrAllowance, uint8 v, bytes32 r, bytes32 s
-          //deployedAddress[3] should be var variable token;
-            //maker: orderAddresses[0],
-            // taker: orderAddresses[1],
-            // makerToken: orderAddresses[2],
-            // takerToken: orderAddresses[3],
-            // feeRecipient: orderAddresses[4],
+            //fillOrder() parameters: (found in contracts/Exchange.sol)
+            //address[5] orderAddresses, uint[6] orderValues, uint fillTakerTokenAmount, bool shouldThrowOnInsufficientBalanceOrAllowance, uint8 v, bytes32 r, bytes32 s
+
           alert("Wrong Network! ")
-          var orderArray = window.orders[0]
-          var orderAddresses = [orderArray[0], orderArray[1],orderArray[2], orderArray[3], orderArray[4]]
-          var orderValues = [orderArray[0], orderArray[1], orderArray[2], orderArray[3], orderArray[4]]
-          var tokenAmount = wethBalance;
-          var safety = true;
-          var v = orderArray[3];
-                    var s = orderArray[3];
+          var orderObject = window.orders[0] //grabs first order from Dan's getOrders()
+          //Define parameters for fillOrder() below:
+          var orderAddresses = order_object.order_addresses;
+          var orderValues = order_object.order_values; //currently .length = 5.... Order_values[5] should be `expirationTimestampInSec` (it's currently salt) 
+          var fillTakerTokenAmount = wethBalance; //need to make sure that wethBalance is a number and that it comes from a smart contract call for getBalance
+          var shouldThrowOnInsufficientBalanceOrAllowance = true;
+          var v = orderObject.v;
+          var r = orderObject.s;
+          var r = orderObject.r;
 
-          var v = orderArray[3];
-
-          var r  = orderArray[3];
-          var s = orderArray[3];
-
-          return deployed.fillOrder(orderAddresses, orderValues, tokenAmount, safety, v, r, s);
+          return deployed.fillOrder(
+            orderAddresses, 
+            orderValues, 
+            fillTakerTokenAmount, 
+            shouldThrowOnInsufficientBalanceOrAllowance, 
+            v, 
+            r, 
+            s);
         })
         .catch(error => {
           return console.error(error)
@@ -302,7 +302,7 @@ async function getOrders(makerToken) {
   }
   for(var key in final_orders){
     var current_order = final_orders[key];
-    var order_addresses = [current_order.maker, current_order.taker, current_order.makerTokenAddress, current_order.takerTokenAddress, current_order.feeRecipient];
+    var order_addresses = [current_order.makera current_order.takera current_order.makerTokenAddressa current_order.takerTokenAddressa current_order.feeRecipient];
     var order_values = [current_order.makerTokenAmount, current_order.takerTokenAmount, current_order.makerFee, current_order.takerFee, current_order.salt];
     var v = current_order.ecSignature.v;
     var r = current_order.ecSignature.r;
