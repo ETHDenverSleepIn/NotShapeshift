@@ -10,6 +10,9 @@
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <link rel="stylesheet" href="stylesheet.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800" rel="stylesheet">
+
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -19,13 +22,24 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <div id="root"></div>
+    <title>NotShapeshift</title>
+    </head>
+    <body>
+    <div class="center">
+      <noscript>
+        You need to enable JavaScript to run this app.
+      </noscript>
+      <h1>NotShapeshift</h1>
+      <h2>Easily convert ETH into ERC-20 tokens.</h2>
+      <div class="row">
+        <div class="column">
+          <div>How to use:</div>
+        </div>
+        <div class="column">
+          <div id="dropdown"></div>
+        </div>
+      </div>
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

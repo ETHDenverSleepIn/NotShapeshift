@@ -1,0 +1,41 @@
+{
+  "name": "react-super-select",
+  "version": "1.0.7",
+  "description": "react-super-select",
+  "main": "lib/react-super-select.js",
+  "homepage": "https://github.com/alsoscotland/react-super-select",
+  "authors": [
+    "Scotland Stephenson"
+  ],
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "react",
+    "react-component"
+  ],
+  "license": "MIT",
+  "ignore": [
+    ".babelrc",
+    ".editorconfig",
+    ".gitignore",
+    "package.json",
+    "src",
+    "node_modules",
+    "example",
+    "test",
+    ".eslintrc",
+    ".gitattributes",
+    ".npmignore",
+    ".nvmrc",
+    "TODO.txt",
+    "gulpconfig.js",
+    "gulpfile.js",
+    "preprocessor.js",
+    "scripts",
+    "src_docs",
+    "tasks"
+  ]
+}

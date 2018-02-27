@@ -600,6 +600,7 @@ PendingCancel (5)
       taker?: string;
       trader?: string;
       feeRecipient?: string;
+      source?: string;
     }
 
     export interface IStandardGetOrderByHashParams {
@@ -623,6 +624,7 @@ PendingCancel (5)
       quoteTokenAddress: string;
       per_page?: number;
       page?: number;
+      source?: string;
     }
 
     export interface ITakerEventsGetByTakerParams {
@@ -849,6 +851,7 @@ PendingCancel (5)
           taker: params.taker,
           trader: params.trader,
           feeRecipient: params.feeRecipient,
+          source: params.source,
         };
         return this.executeRequest<IStandardOrder[]>(requestParams);
       }
@@ -895,6 +898,7 @@ PendingCancel (5)
           quoteTokenAddress: params.quoteTokenAddress,
           per_page: params.per_page,
           page: params.page,
+          source: params.source,
         };
         return this.executeRequest<IStandardOrderbook>(requestParams);
       }

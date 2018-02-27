@@ -1,4 +1,5 @@
-$mobileCutoff: 500px;
+$tabletCutoff: 1000px;
+$mobileCutoff: 600px;
 
 * {
   box-sizing: border-box;
@@ -6,15 +7,29 @@ $mobileCutoff: 500px;
 
 .home {
   flex: 1;
-
+  max-width: 87.5rem;
+  margin: 0 auto;
   h1 {
-    font-size: 1.55rem;
+    font-size: 2rem;
+  }
+
+  @media (max-width: $mobileCutoff) {
+    h1 {
+      font-size: 2rem;
+    }
   }
 
   .half-width {
     width: 50%;
 
-    @media(max-width: $mobileCutoff) {
+    @media (max-width: $mobileCutoff) {
+      width: 100%;
+    }
+  }
+
+  .three-quarters-width {
+    width: 75%;
+    @media (max-width: $mobileCutoff) {
       width: 100%;
     }
   }
@@ -22,7 +37,7 @@ $mobileCutoff: 500px;
   .button {
     border: none;
     outline: none;
-    padding: 1rem 4rem;
+    padding: 1rem 3rem;
     font-size: 1.25rem;
     font-weight: 100;
     text-transform: uppercase;
@@ -30,54 +45,110 @@ $mobileCutoff: 500px;
     border-radius: 5px;
     text-decoration: none;
     text-align: center;
+    height: 3.5rem;
+    white-space: nowrap;
   }
 }
 
 .top {
-  background: linear-gradient(to bottom right, #ffffff -123%, #ffffff, transparent), url(/images/poly8.svg);
+  background: linear-gradient(
+      to bottom right,
+      #ffffff -123%,
+      #ffffff,
+      transparent
+    ),
+    url(/images/poly8.svg);
+    border-bottom: solid 2px #5571ba;
+    margin-bottom: 2rem;
 }
 
 .section-container {
-  padding-left: 5rem;
-
-  @media(max-width: 400px) {
-    padding-left: 1rem;
+  // padding-left: 5rem;
+  padding: 0.5rem 5rem 0 5rem;
+  @media (max-width: 600px) {
+    padding: 0.5rem 1rem 0.5rem 1rem;
   }
+  
 }
 
 .header-container {
-  width: 50%;
+  width: 60%;
   padding-right: 5rem;
   padding-top: 10rem;
-  padding-bottom: 10rem;
+  padding-bottom: 8rem;
+  margin-bottom: 2rem;
 
-  @media(max-width: 400px) {
+  a {
+    color: #5571ba;
+  }
+
+  .getStarted {
+    margin-top: 3rem;
+    width: calc(100% + 5vw);
+    min-width: 650px;
+    background-color: rgba(238,245,251,0.85);
+    margin-left: -5rem;
+    padding-left: 5rem;
+    display: flex;
+    align-items: center;
+    h1 {
+      margin-bottom: 0.25rem;
+    }
+    code {
+      display: block;
+      padding: 0.5rem 0 0.5rem 0.5rem;
+      background-color: white;
+      font-size:1rem;
+      margin-bottom: 1.25rem;
+      border: solid 1px #ddd;
+    }
+    .icon-container {
+      font-size: 4rem;
+      padding-right: 1rem;
+      color: #93cef0;
+    }
+
+    @media (max-width: $mobileCutoff) {
+    width: 100vw;
+    min-width:100%;
+    margin-left: -1rem;
+    padding-left: 1rem;
+  }
+  }
+
+  @media (max-width: 400px) {
     padding-right: 1rem;
   }
 
-  @media(max-width: 800px) {
+  @media (max-width: 800px) {
     width: 100%;
   }
 }
 
-.blue-container, .rest-container {
-  padding-top: .5rem !important;
+.blue-container,
+.rest-container {
+  padding-top: 0.5rem !important;
+  margin-bottom: 1rem;
 
   @media (max-width: $mobileCutoff) {
     padding-right: 1rem;
 
     .button {
-      width: 100%;
+      width: 90%;
     }
   }
 }
 
 .getting-started {
-  padding-right: 1rem;
-  text-align: right;
+  padding: 4rem 0rem 2rem 5rem;
+  text-align: left;
+
+  @media (max-width: 400px) {
+    padding-left: 1rem;
+  }
 
   h1 {
-    text-align: right;
+    text-align: left;
     margin-bottom: 0;
   }
 
@@ -90,7 +161,7 @@ $mobileCutoff: 500px;
     justify-content: center;
     align-items: center;
     font-size: 4rem;
-    padding-left: 1rem;
+    padding-right: 1rem;
     color: #93cef0;
   }
 }
@@ -98,18 +169,33 @@ $mobileCutoff: 500px;
 .blue-container {
   padding-top: 2rem;
   padding-bottom: 2rem;
-  background-color: #5571ba;
+  background: linear-gradient(
+      to bottom right,
+      #5571ba -25%,
+      #5571ba,
+      transparent
+    ),
+    url(/images/poly8.svg);
   color: white;
+  
+  a.text {
+    color: #eee;
+  }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: white;
   }
 
   .button {
     background-color: #ffffff;
   }
-  
-  @media(max-width: $mobileCutoff) {
+
+  @media (max-width: $mobileCutoff) {
     display: block !important;
 
     .button {
@@ -120,15 +206,16 @@ $mobileCutoff: 500px;
 
 .rest-container {
   padding-top: 2rem;
-  padding-bottom: 2rem;
-  
+  padding-bottom: 3rem;
+  background-color: rgba(238,245,251,0.85);
+
   .button {
     border: 1px solid #b1b1b1;
     background-color: whitesmoke;
   }
 
-  @media(max-width: $mobileCutoff) {
-    flex-direction: column-reverse;
+  @media (max-width: $mobileCutoff) {
+    display: block !important;
   }
 }
 
